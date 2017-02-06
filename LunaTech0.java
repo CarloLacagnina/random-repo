@@ -13,7 +13,6 @@ import tools.Tools;
  * 
  * @notes: additional method is needed to remove quotes in output for better display
  * @notes: web application is still needed to be implemented
- * @notes: partial matching not implemented because requires extra efforts with dealing with countries starting with same names (e.g. United States)
  * 
  */
 class InScanner {
@@ -26,7 +25,7 @@ class InScanner {
 	//column number in arrays containing information to be processed
 	static final int cCountriesName = 2;
 	static final int cCountriesCode = 1;
-	static final int cAirportsIsoCode = 8;
+	static final int cAirportsIsoCountry = 8;
 	static final int cAirportsName = 3;
 	static final int cAirportsId = 0;
 	static final int cRunwaysAirportRef = 1;
@@ -193,7 +192,7 @@ class InScanner {
 			 choice = inputCountries[outputCountry][cCountriesCode]; //country code
 		 }
 		 
-	     int[] outputAirports = Tools.find(Tools.reduce2Dto1D(inputAirports, cAirportsIsoCode), choice); //position in file of airports associated to country
+	     int[] outputAirports = Tools.find(Tools.reduce2Dto1D(inputAirports, cAirportsIsoCountry), choice); //position in file of airports associated to country
 	     if(outputAirports[0] == -1) { System.out.println("No additional information!"); System.exit(1); }
 	     for(int i=0; i<outputAirports.length; i++) {
 	    	 airName = inputAirports[outputAirports[i]][cAirportsName]; //airport name associated with country
@@ -225,7 +224,7 @@ class InScanner {
 		 String[] countryCode = Tools.reduce2Dto1D(inputCountries, cCountriesCode);
 		 
 		 for(int i=0; i<lenCountries; i++) {
-		     int[] outputAirports = Tools.find(Tools.reduce2Dto1D(inputAirports, cAirportsIsoCode), countryCode[i]); //position in file of airports associated to country	     
+		     int[] outputAirports = Tools.find(Tools.reduce2Dto1D(inputAirports, cAirportsIsoCountry), countryCode[i]); //position in file of airports associated to country	     
 		     if(outputAirports[0] == -1) continue;
 		     nAirports[i] = outputAirports.length;	     
 		     printingTypeRunways(outputAirports, countryName[i]);
